@@ -16,6 +16,7 @@ depends=(
     'qt6ct'
     'polkit-gnome'
     'nwg-look'
+    'xdg-desktop-portal-gnome'
 )
 
 makedepends=('git')
