@@ -14,6 +14,8 @@ depends=(
     'dconf'
     'adw-gtk-theme'
     'qt6ct'
+    'polkit-gnome'
+    'nwg-look'
 )
 
 makedepends=('git')
