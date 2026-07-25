@@ -1,0 +1,44 @@
+
+window-rule {
+  // Rounded corners for a modern look.
+  geometry-corner-radius 10
+
+  // Clips window contents to the rounded corner boundaries.
+  clip-to-geometry true
+}
+layout {
+    gaps 8
+        focus-ring {
+        width 2
+        inactive-color "#505050"
+    }
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        off
+        width 9
+        active-color "#ffc87f"
+        inactive-color "#505050"
+    }
+    shadow {
+        // Uncomment the next line to enable shadows.
+        on
+        draw-behind-window true
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#0007"
+    }
+    }
+
+// Floating Noctalia settings window.
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}

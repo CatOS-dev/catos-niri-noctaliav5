@@ -1,0 +1,21 @@
+
+[shell]
+niri_overview_type_to_launch_enabled = true
+
+[shell.panel]
+transparency_mode = "glass"
+
+[bar.main]
+background_opacity = 0.5
+
+[backdrop]
+enabled = true
+blur_intensity = 0.5   # 模糊强度 (0.0 = 无模糊, 1.0 = 最大模糊)
+tint_intensity = 0.3   # 表面颜色着色强度 (0.0 = 无着色, 1.0 = 完全不透明着色)
+[theme.templates]
+# 启用内置模板功能
+enable_builtin_templates = true
+builtin_ids = ["gtk4", "gtk3", "qt"]
+
+[shell.greeter_sync]
+auto_sync = true
