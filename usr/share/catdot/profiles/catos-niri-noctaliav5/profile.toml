@@ -1,0 +1,24 @@
+schema = 5
+name = "CatOS Niri Noctaliav5"
+description = "Complete CatOS Niri desktop powered by Noctalia"
+
+packages = [
+  "niri",
+  "xdg-desktop-portal-gtk",
+  "xdg-desktop-portal-gnome",
+  "power-profiles-daemon",
+  "kitty",
+  "xwayland-satellite",
+  "catos-graphite-gtk-theme",
+  "tela-circle-icon-theme-all",
+  "catos-bibata-cursor",
+]
+
+manage = [
+  ".config/niri/config.kdl",
+  ".gtkrc-2.0",
+  ".config/gtk-3.0/settings.ini",
+  ".config/gtk-4.0/settings.ini",
+  ".config/gtk-4.0/gtk.css",
+  ".icons/default/index.theme",
+]
