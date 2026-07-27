@@ -1,34 +1,36 @@
 pkgname=catos-niri-noctaliav5
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="CachyOS Niri + Noctalia v5 "
-install=catos-niri-noctaliav5.install
+pkgdesc="CatOS Niri desktop profile powered by Noctalia v5"
 arch=('any')
-url="https://github.com/YeFaDa/${pkgname}"
-license=('GPL3')
+url="https://github.com/CatOS-dev/catos-niri-noctaliav5"
+license=('GPL-3.0-only')
 
 depends=(
-    'niri'
-    'noctalia-git'
-    'noctalia-greeter-git'
-    'dconf'
     'adw-gtk-theme'
-    'qt6ct'
+    'brightnessctl'
+    'catos-bibata-cursor'
+    'catdot'
+    'dconf'
+    'fcitx5'
+    'fuzzel'
+    'kitty'
+    'niri'
+    'noctalia'
+    'orca'
+    'playerctl'
     'polkit-gnome'
-    'nwg-look'
+    'qt5ct'
+    'qt6ct'
+    'wireplumber'
     'xdg-desktop-portal-gnome'
+    'xdg-desktop-portal-gtk'
+    'xwayland-satellite'
 )
 
-makedepends=('git')
-
-source=("git+https://github.com/YeFaDa/catos-niri-noctaliav5.git")
-sha256sums=('SKIP')
+source=()
+sha256sums=()
 
 package() {
-    install -d "${pkgdir}/etc"
-    cp -rf "${srcdir}/${pkgname}/etc" "${pkgdir}/"
-    chmod -R 755 "${pkgdir}/etc/skel"
-    install -d "${pkgdir}/usr/share/${pkgname}"
-    cp -f "${srcdir}/${pkgname}/usr/share/${pkgname}/greetd-config.toml" "${pkgdir}/usr/share/${pkgname}/"
-
+    cp -a "$startdir/usr" "$pkgdir/"
 }

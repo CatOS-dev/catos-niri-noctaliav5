@@ -15,7 +15,7 @@ tint_intensity = 0.3   # 表面颜色着色强度 (0.0 = 无着色, 1.0 = 完全
 [theme.templates]
 # 启用内置模板功能
 enable_builtin_templates = true
-builtin_ids = ["gtk4", "gtk3", "qt" "niri" ]
+builtin_ids = ["gtk4", "gtk3", "qt", "niri"]
 
 [shell.greeter_sync]
 auto_sync = true

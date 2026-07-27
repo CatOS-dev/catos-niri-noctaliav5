@@ -1,0 +1,44 @@
+from __future__ import annotations
+
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+import unittest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DCONF_DIR = ROOT / "usr/share/catos-niri-noctaliav5/.config/dconf"
+ALL_INI = DCONF_DIR / "all.ini"
+USER_DB = DCONF_DIR / "user"
+
+
+class DconfDefaultsTests(unittest.TestCase):
+    def dump_user_database(self) -> str:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            config_dir = Path(tmpdir) / ".config"
+            dconf_dir = config_dir / "dconf"
+            dconf_dir.mkdir(parents=True)
+            shutil.copy2(USER_DB, dconf_dir / "user")
+            env = os.environ.copy()
+            env.update({"HOME": tmpdir, "XDG_CONFIG_HOME": str(config_dir)})
+            return subprocess.run(
+                ["dconf", "dump", "/"],
+                check=True,
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+            ).stdout
+
+    def test_text_export_matches_readable_binary_database(self) -> None:
+        self.assertEqual(ALL_INI.read_text(encoding="utf-8"), self.dump_user_database())
+
+    def test_dark_color_scheme_is_not_forced(self) -> None:
+        dump = self.dump_user_database()
+        self.assertNotIn("color-scheme='prefer-dark'", dump)
+        self.assertIn("cursor-theme='Bibata-Modern-Classic'", dump)
+
+
+if __name__ == "__main__":
+    unittest.main()
