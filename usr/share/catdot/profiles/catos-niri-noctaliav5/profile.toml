@@ -6,6 +6,7 @@ packages = [
   "niri",
   "xdg-desktop-portal-gtk",
   "xdg-desktop-portal-gnome",
+  "polkit-gnome",
   "power-profiles-daemon",
   "kitty",
   "xwayland-satellite",
