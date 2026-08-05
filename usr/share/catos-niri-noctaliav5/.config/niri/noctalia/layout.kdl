@@ -1,7 +1,7 @@
 
 window-rule {
   // Rounded corners for a modern look.
-  geometry-corner-radius 10
+  geometry-corner-radius 12
 
   // Clips window contents to the rounded corner boundaries.
   clip-to-geometry true
@@ -26,10 +26,10 @@ layout {
     shadow {
         // Uncomment the next line to enable shadows.
         on
-        draw-behind-window true
-        softness 30
-        spread 5
-        offset x=0 y=5
+        draw-behind-window false
+        softness 12
+        spread 0
+        offset x=0 y=0
         color "#0007"
     }
     }
