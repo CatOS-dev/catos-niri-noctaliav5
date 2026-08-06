@@ -1,36 +1,25 @@
-schema = 4
-name = "CatOS Niri Noctalia"
+schema = 5
+name = "CatOS Niri Noctaliav5"
 description = "Complete CatOS Niri desktop powered by Noctalia"
 
 packages = [
   "niri",
-  "noctalia",
-  "xwayland-satellite",
-  "xdg-desktop-portal-gnome",
   "xdg-desktop-portal-gtk",
+  "xdg-desktop-portal-gnome",
   "polkit-gnome",
+  "power-profiles-daemon",
   "kitty",
-  "fuzzel",
-  "fcitx5",
-  "brightnessctl",
-  "playerctl",
-  "wireplumber",
-  "qt5ct",
-  "qt6ct",
+  "xwayland-satellite",
+  "catos-graphite-gtk-theme",
+  "tela-circle-icon-theme-all",
   "catos-bibata-cursor",
-  "dconf",
-  "adw-gtk-theme",
-  "orca",
 ]
 
 manage = [
   ".config/niri/config.kdl",
-  ".config/niri/noctalia.kdl",
-  ".config/niri/noctalia/binds.kdl",
-  ".config/niri/noctalia/blur.kdl",
-  ".config/niri/noctalia/cursor.kdl",
-  ".config/niri/noctalia/layout.kdl",
-  ".config/niri/noctalia/wpblur.kdl",
-  ".config/noctalia/config.toml",
-  ".config/xdg-desktop-portal/niri-portals.conf",
+  ".gtkrc-2.0",
+  ".config/gtk-3.0/settings.ini",
+  ".config/gtk-4.0/settings.ini",
+  ".config/gtk-4.0/gtk.css",
+  ".icons/default/index.theme",
 ]

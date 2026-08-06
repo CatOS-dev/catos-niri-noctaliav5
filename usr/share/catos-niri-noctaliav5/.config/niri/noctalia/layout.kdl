@@ -5,6 +5,10 @@ window-rule {
 
   // Clips window contents to the rounded corner boundaries.
   clip-to-geometry true
+  //opacity 0.96
+  tiled-state true
+  draw-border-with-background false
+
 }
 layout {
     gaps 8
