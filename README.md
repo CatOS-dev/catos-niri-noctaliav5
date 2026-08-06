@@ -24,12 +24,10 @@ Profile does not restart applications or the desktop session.
 The Profile owns and refreshes these paths:
 
 ```text
-.config/niri/config.kdl
-.gtkrc-2.0
-.config/gtk-3.0/settings.ini
-.config/gtk-4.0/settings.ini
-.config/gtk-4.0/gtk.css
-.icons/default/index.theme
+  .config/niri/config.kdl
+  .config/kitty/kitty.conf
+  .config/noctalia/config.toml
+  .config/starship.toml
 ```
 
 Run the following command to explicitly accept a newer installed revision:
