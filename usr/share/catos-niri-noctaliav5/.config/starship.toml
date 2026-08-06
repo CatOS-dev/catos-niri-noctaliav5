@@ -1,18 +1,19 @@
 "$schema" = "https://starship.rs/config-schema.json"
 palette = "noctalia"
 
+# --- 从左到右的单向渐变：sapphire → overlay2 → overlay1 → overlay0 → surface1 ---
 format = """
-[░▒▓](sapphire)\
+[](fg:sapphire)\
 $os\
 $username\
 $hostname\
-[](bg:overlay2 fg:sapphire)\
+[](fg:sapphire bg:overlay2)\
 $directory\
-[](fg:overlay2 bg:surface2)\
+[](fg:overlay2 bg:overlay1)\
 $git_branch\
 $git_status\
 $git_state\
-[](fg:surface2 bg:overlay1)\
+[](fg:overlay1 bg:overlay0)\
 $c\
 $cpp\
 $rust\
@@ -27,11 +28,11 @@ $haskell\
 $docker_context\
 $conda\
 $pixi\
-[](fg:overlay1 bg:surface1)\
+[](fg:overlay0 bg:surface1)\
 $time\
-[ ](fg:surface1)\
+[](fg:surface1)\
 $line_break\
-$character"""
+[╰─](bold sapphire)$character"""
 
 [os]
 disabled = false
@@ -66,7 +67,7 @@ Pop = ""
 [username]
 show_always = false
 style_user = "bg:sapphire fg:crust"
-style_root = "bold bg:sapphire fg:flamingo" # Root 用户使用 Error 语义色 (红/粉) 更醒目
+style_root = "bold bg:sapphire fg:flamingo"
 format = "[$user ]($style)"
 
 [hostname]
@@ -74,6 +75,7 @@ ssh_only = true
 style = "bg:sapphire fg:crust"
 format = "[@$hostname ]($style)"
 
+# --- 渐变第 2 阶：overlay2 ---
 [directory]
 style = "bg:overlay2 fg:text"
 format = "[ $path ]($style)"
@@ -87,104 +89,104 @@ truncation_symbol = "…/"
 "Pictures" = " "
 "Developer" = "󰲋 "
 
+# --- 渐变第 3 阶：overlay1 ---
 [git_branch]
 symbol = ""
-style = "bg:surface2"
-format = "[ $symbol ](fg:sapphire bg:surface2)[ $branch ](fg:text bg:surface2)" # 图标主色，文字辅色
+style = "bg:overlay1"
+format = "[ $symbol ](fg:sapphire bg:overlay1)[ $branch ](fg:text bg:overlay1)"
 
 [git_status]
-style = "bg:surface2"
-format = "[($all_status$ahead_behind )](fg:subtext1 bg:surface2)"
+style = "bg:overlay1"
+format = "[($all_status$ahead_behind )](fg:subtext1 bg:overlay1)"
 
 [git_state]
-style = "bg:surface2"
-format = "[ $state( $progress_current/$progress_total) ](fg:peach bg:surface2)" # 进行中状态使用 Tertiary 警告色
+style = "bg:overlay1"
+format = "[ $state( $progress_current/$progress_total) ](fg:peach bg:overlay1)"
 
-# --- 语言环境 (Secondary Accent: Teal) ---
+# --- 渐变第 4 阶：overlay0（语言与工具）---
 [c]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [cpp]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [rust]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [golang]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [nodejs]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [bun]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [python]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)[\\($virtualenv\\)](fg:mauve bg:overlay1)" # 虚拟环境使用 Tertiary 色区分
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)[\\($virtualenv\\)](fg:mauve bg:overlay0)"
 
 [java]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [kotlin]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [php]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
 [haskell]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:teal bg:overlay1)[($version)](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:teal bg:overlay0)[($version)](fg:subtext1 bg:overlay0)"
 
-# --- 容器与工具 (Tertiary Accents: Mauve/Peach) ---
 [docker_context]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:mauve bg:overlay1)[ $context ](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:mauve bg:overlay0)[ $context ](fg:subtext1 bg:overlay0)"
 only_with_files = true
 
 [conda]
 symbol = ""
-style = "bg:overlay1"
-format = "[ $symbol ](fg:mauve bg:overlay1)[ $environment ](fg:subtext1 bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:mauve bg:overlay0)[ $environment ](fg:subtext1 bg:overlay0)"
 
 [pixi]
 symbol = "󰏗"
-style = "bg:overlay1"
-format = "[ $symbol ](fg:mauve bg:overlay1)[($version)](fg:subtext1 bg:overlay1)[ $environment ](fg:peach bg:overlay1)"
+style = "bg:overlay0"
+format = "[ $symbol ](fg:mauve bg:overlay0)[($version)](fg:subtext1 bg:overlay0)[ $environment ](fg:peach bg:overlay0)"
 
-# --- 辅助信息 (Low Emphasis) ---
+# --- 渐变第 5 阶：surface1（尾部，融入终端背景）---
 [time]
 disabled = false
 time_format = "%R"
 style = "bg:surface1"
-format = "[  ](fg:subtext0 bg:surface1)[ $time ](fg:text bg:surface1)" # 图标弱化，时间清晰
+format = "[  ](fg:white bg:surface1)[ $time ](fg:text bg:surface1)"
 
 # --- 交互提示符 ---
 [character]
-success_symbol = "[❯](bold teal)"      # 成功/就绪使用 Secondary (绿/青)
-error_symbol = "[❯](bold flamingo)"    # 错误使用 Error (红/粉)
-vimcmd_symbol = "[❮](bold sapphire)"   # Vim Normal 使用 Primary (蓝)
+success_symbol = "[❯](bold teal)"
+error_symbol = "[❯](bold flamingo)"
+vimcmd_symbol = "[❮](bold sapphire)"
 vimcmd_replace_one_symbol = "[❮](bold mauve)"
 vimcmd_replace_symbol = "[❮](bold mauve)"
 vimcmd_visual_symbol = "[❮](bold peach)"
