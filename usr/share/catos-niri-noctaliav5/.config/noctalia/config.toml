@@ -22,6 +22,6 @@ niri_overview_type_to_launch_enabled = true
     transparency_mode = "glass"
 
 [theme.templates]
-builtin_ids = [ "gtk3", "gtk4", "niri", "qt" ]
+builtin_ids = [ "gtk3", "gtk4", "niri", "qt", "kitty", "starship" ]
 enable_builtin_templates = true
 
