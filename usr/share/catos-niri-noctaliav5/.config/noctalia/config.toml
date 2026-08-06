@@ -1,22 +1,27 @@
+[backdrop]
+blur_intensity = 0.5
+enabled = true
+tint_intensity = 0.29999999999999999
+
+[bar.main]
+background_opacity = 0.5
+start = [ "launcher", "wallpaper", "workspaces", "taskbar" ]
+
+    [bar.main.dead_zone.actions]
+    middle = "exec niri msg action close-window"
+    scroll_down = "workspace-switch next"
+    scroll_up = "workspace-switch prev"
 
 [shell]
 niri_overview_type_to_launch_enabled = true
 
-[shell.panel]
-transparency_mode = "glass"
+    [shell.greeter_sync]
+    auto_sync = true
 
-[bar.main]
-background_opacity = 0.5
-start  = ["launcher", "wallpaper", "workspaces"]
-
-[backdrop]
-enabled = true
-blur_intensity = 0.5
-tint_intensity = 0.3
+    [shell.panel]
+    transparency_mode = "glass"
 
 [theme.templates]
+builtin_ids = [ "gtk3", "gtk4", "niri", "qt", "kitty", "starship" ]
 enable_builtin_templates = true
-builtin_ids = ["gtk4", "gtk3", "qt", "niri"]
 
-[shell.greeter_sync]
-auto_sync = true
