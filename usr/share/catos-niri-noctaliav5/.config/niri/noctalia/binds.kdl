@@ -6,7 +6,9 @@ binds {
     Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
     Mod+V { spawn-sh "noctalia msg panel-toggle clipboard"; }
     Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
-    
+    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Backslash       { toggle-window-floating; }
+
     // Niri has a built-in window switcher you might want to try it to see which one you prefer.
 
     // Audio & Brightness
@@ -15,6 +17,11 @@ binds {
     XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
     XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
     XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
+
+
+
+
+
         // === Window Management ===
     Mod+Q repeat=false { close-window; }
     Mod+F { maximize-column; }
@@ -151,5 +158,14 @@ binds {
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+
+    // Powers off the monitors. To turn them back on, do any input like
+    // moving the mouse or pressing any other key.
+    Mod+Shift+P { power-off-monitors; }
 
 }
