@@ -8,12 +8,16 @@ CONFIG = ROOT / "usr/share/catos-niri-noctaliav5/.config/noctalia/config.toml"
 
 
 class NoctaliaConfigTests(unittest.TestCase):
-    def test_builtin_template_ids_are_valid_toml_array(self) -> None:
+    def test_expected_builtin_templates_are_enabled(self) -> None:
         data = tomllib.loads(CONFIG.read_text(encoding="utf-8"))
+        templates = data["theme"]["templates"]
+        builtin_ids = templates["builtin_ids"]
+        self.assertEqual(len(builtin_ids), len(set(builtin_ids)))
         self.assertEqual(
-            data["theme"]["templates"]["builtin_ids"],
-            ["gtk4", "gtk3", "qt", "niri"],
+            set(builtin_ids),
+            {"gtk3", "gtk4", "niri", "qt", "kitty", "starship"},
         )
+        self.assertTrue(templates["enable_builtin_templates"])
 
 
 if __name__ == "__main__":

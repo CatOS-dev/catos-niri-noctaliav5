@@ -81,6 +81,10 @@ class CatdotProfileTests(unittest.TestCase):
         )
 
     def test_manifest_is_accepted_by_catdot_schema_four(self) -> None:
+        manifest = tomllib.loads(MANIFEST.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["schema"], 4)
+        self.assertIn("noctalia", manifest["packages"])
+
         with tempfile.TemporaryDirectory() as tmpdir:
             temp = Path(tmpdir)
             profile_root, _ = self.stage_profile(temp)
@@ -93,11 +97,16 @@ class CatdotProfileTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, result.stderr)
 
-    def test_select_and_update_preserve_machine_and_dconf_seeds(self) -> None:
+    def test_select_and_update_preserve_runtime_machine_and_dconf_seeds(self) -> None:
         manifest = tomllib.loads(MANIFEST.read_text(encoding="utf-8"))
         packages = manifest["packages"]
         managed = set(manifest["manage"])
-        self.assertNotIn(".config/niri/noctalia/outputs.kdl", managed)
+        self.assertIn(".config/niri/noctalia/binds.kdl", managed)
+        self.assertIn(".config/xdg-desktop-portal/niri-portals.conf", managed)
+        self.assertNotIn(".config/niri/noctalia.kdl", managed)
+        self.assertNotIn(
+            ".config/niri/custom/catos-niri-noctaliav5/outputs.kdl", managed
+        )
         self.assertNotIn(".config/dconf/user", managed)
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -120,11 +129,25 @@ class CatdotProfileTests(unittest.TestCase):
 
             managed_niri = home / ".config/niri/config.kdl"
             managed_noctalia = home / ".config/noctalia/config.toml"
-            output_seed = home / ".config/niri/noctalia/outputs.kdl"
+            managed_binds = home / ".config/niri/noctalia/binds.kdl"
+            managed_portal = home / ".config/xdg-desktop-portal/niri-portals.conf"
+            generated_niri_seed = home / ".config/niri/noctalia.kdl"
+            output_seed = (
+                home / ".config/niri/custom/catos-niri-noctaliav5/outputs.kdl"
+            )
             dconf_seed = home / ".config/dconf/user"
-            for path in (managed_niri, managed_noctalia, output_seed, dconf_seed):
+            for path in (
+                managed_niri,
+                managed_noctalia,
+                managed_binds,
+                managed_portal,
+                generated_niri_seed,
+                output_seed,
+                dconf_seed,
+            ):
                 self.assertTrue(path.is_file(), path)
 
+            generated_niri_seed.write_text("runtime generated theme\n", encoding="utf-8")
             output_seed.write_text("user output layout\n", encoding="utf-8")
             dconf_seed.write_bytes(b"user dconf database")
             (staged_content / ".config/niri/config.kdl").write_text(
@@ -135,7 +158,21 @@ class CatdotProfileTests(unittest.TestCase):
                 managed_noctalia.read_text(encoding="utf-8") + "\n# managed-update\n",
                 encoding="utf-8",
             )
-            (staged_content / ".config/niri/noctalia/outputs.kdl").write_text(
+            (staged_content / ".config/niri/noctalia/binds.kdl").write_text(
+                managed_binds.read_text(encoding="utf-8") + "\n// managed-update\n",
+                encoding="utf-8",
+            )
+            (staged_content / ".config/xdg-desktop-portal/niri-portals.conf").write_text(
+                managed_portal.read_text(encoding="utf-8") + "\n# managed-update\n",
+                encoding="utf-8",
+            )
+            (staged_content / ".config/niri/noctalia.kdl").write_text(
+                "profile generated theme update\n", encoding="utf-8"
+            )
+            (
+                staged_content
+                / ".config/niri/custom/catos-niri-noctaliav5/outputs.kdl"
+            ).write_text(
                 "profile output update\n", encoding="utf-8"
             )
             (staged_content / ".config/dconf/user").write_bytes(b"profile dconf update")
@@ -151,6 +188,12 @@ class CatdotProfileTests(unittest.TestCase):
             self.assertEqual(updated.returncode, 0, updated.stderr)
             self.assertIn("managed-update", managed_niri.read_text(encoding="utf-8"))
             self.assertIn("managed-update", managed_noctalia.read_text(encoding="utf-8"))
+            self.assertIn("managed-update", managed_binds.read_text(encoding="utf-8"))
+            self.assertIn("managed-update", managed_portal.read_text(encoding="utf-8"))
+            self.assertEqual(
+                generated_niri_seed.read_text(encoding="utf-8"),
+                "runtime generated theme\n",
+            )
             self.assertEqual(output_seed.read_text(encoding="utf-8"), "user output layout\n")
             self.assertEqual(dconf_seed.read_bytes(), b"user dconf database")
 

@@ -31,13 +31,36 @@ class DconfDefaultsTests(unittest.TestCase):
                 stdout=subprocess.PIPE,
             ).stdout
 
-    def test_text_export_matches_readable_binary_database(self) -> None:
-        self.assertEqual(ALL_INI.read_text(encoding="utf-8"), self.dump_user_database())
+    @staticmethod
+    def parse_dump(text: str) -> dict[tuple[str, str], str]:
+        section = ""
+        values: dict[tuple[str, str], str] = {}
+        for raw_line in text.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if line.startswith("[") and line.endswith("]"):
+                section = line[1:-1]
+                continue
+            key, value = line.split("=", 1)
+            values[(section, key)] = value
+        return values
 
-    def test_dark_color_scheme_is_not_forced(self) -> None:
-        dump = self.dump_user_database()
-        self.assertNotIn("color-scheme='prefer-dark'", dump)
-        self.assertIn("cursor-theme='Bibata-Modern-Classic'", dump)
+    def test_text_export_matches_readable_binary_database(self) -> None:
+        text_defaults = self.parse_dump(ALL_INI.read_text(encoding="utf-8"))
+        binary_defaults = self.parse_dump(self.dump_user_database())
+        self.assertEqual(text_defaults, binary_defaults)
+
+    def test_dark_appearance_defaults_are_seeded(self) -> None:
+        defaults = self.parse_dump(self.dump_user_database())
+        self.assertEqual(
+            defaults[("org/gnome/desktop/interface", "color-scheme")],
+            "'prefer-dark'",
+        )
+        self.assertEqual(
+            defaults[("org/gnome/desktop/interface", "cursor-theme")],
+            "'Bibata-Modern-Classic'",
+        )
 
 
 if __name__ == "__main__":

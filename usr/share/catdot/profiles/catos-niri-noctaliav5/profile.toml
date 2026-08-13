@@ -1,22 +1,47 @@
-schema = 5
-name = "CatOS Niri Noctaliav5"
+schema = 4
+name = "CatOS Niri Noctalia v5"
 description = "Complete CatOS Niri desktop powered by Noctalia"
 
 packages = [
   "niri",
-  "xdg-desktop-portal-gtk",
+  "noctalia",
+  "xwayland-satellite",
   "xdg-desktop-portal-gnome",
+  "xdg-desktop-portal-gtk",
   "polkit-gnome",
   "power-profiles-daemon",
   "kitty",
-  "xwayland-satellite",
+  "fuzzel",
+  "fcitx5",
+  "brightnessctl",
+  "playerctl",
+  "wireplumber",
+  "qt5ct",
+  "qt6ct",
   "tela-circle-icon-theme-all",
   "catos-bibata-cursor",
+  "dconf",
+  "adw-gtk-theme",
+  "orca",
 ]
 
+# Noctalia rewrites .config/niri/noctalia.kdl at runtime, and the files under
+# custom/catos-niri-noctaliav5 are machine/user customizations. They remain
+# seeds so catdot update never overwrites generated output or local tuning.
 manage = [
   ".config/niri/config.kdl",
+  ".config/niri/noctalia/binds.kdl",
+  ".config/niri/noctalia/blur.kdl",
+  ".config/niri/noctalia/cursor.kdl",
+  ".config/niri/noctalia/layout.kdl",
+  ".config/niri/noctalia/wpblur.kdl",
   ".config/kitty/kitty.conf",
   ".config/noctalia/config.toml",
+  ".config/xdg-desktop-portal/niri-portals.conf",
+  ".gtkrc-2.0",
+  ".config/gtk-3.0/settings.ini",
+  ".config/gtk-4.0/settings.ini",
+  ".config/qt6ct/qt6ct.conf",
+  ".icons/default/index.theme",
   ".config/starship.toml",
 ]
